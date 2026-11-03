@@ -1,3 +1,4 @@
+import os
 import re
 
 import anthropic
@@ -45,6 +46,10 @@ def _translate_chunk(client, numbered: list[tuple[int, str]], context: list[tupl
 
 def translate(segments: list[Segment]) -> list[str]:
     """Translate segments sv -> en; returns one English string per input segment."""
+    if not os.environ.get("ANTHROPIC_API_KEY"):
+        raise SystemExit(
+            "ANTHROPIC_API_KEY is not set. Add ANTHROPIC_API_KEY=... to .env in the project root (it is gitignored)."
+        )
     client = anthropic.Anthropic()
     translated: dict[int, str] = {}
     lines = [(i + 1, s.text) for i, s in enumerate(segments)]

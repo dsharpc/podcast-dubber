@@ -7,7 +7,14 @@ Record a Spotify podcast on macOS, transcribe the Swedish audio with KB-Whisper,
 ```sh
 brew install whisper-cpp            # whisper-cli, Metal-accelerated
 ./swift/build.sh                    # builds bin/spotifytap (needs Xcode CLT)
-export ANTHROPIC_API_KEY=sk-ant-... # for translation
+```
+
+Put your keys in a `.env` file in the project root (gitignored; the tool loads it automatically):
+
+```
+ANTHROPIC_API_KEY=sk-ant-...   # translation
+HF_TOKEN=hf_...                # speaker labels (needed for the first model download)
+ELEVENLABS_API_KEY=sk_...      # optional, ElevenLabs voices
 ```
 
 The KB-Whisper model (~1 GB) downloads to `models/` on first transcription.
@@ -25,8 +32,8 @@ uv run podscribe translate episodes/my-episode
 ## Speaker labels
 
 One-off: create a Hugging Face token (read access), accept the terms at
-https://huggingface.co/pyannote/speaker-diarization-community-1, then `export HF_TOKEN=hf_...`
-(or `uv run hf auth login`).
+https://huggingface.co/pyannote/speaker-diarization-community-1, then put `HF_TOKEN=hf_...` in `.env`
+(or run `uv run hf auth login`).
 
 ```sh
 uv run podscribe diarize episodes/my-episode        # --num-speakers defaults to 3
