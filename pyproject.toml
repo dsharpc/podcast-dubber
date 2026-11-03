@@ -1,0 +1,22 @@
+[project]
+name = "podscribe"
+version = "0.1.0"
+description = "Record Spotify podcasts, transcribe Swedish with KB-Whisper, translate to English"
+authors = [
+    { email = "dsharpc@gmail.com" }
+]
+requires-python = ">=3.12"
+dependencies = [
+    "anthropic>=2.3.0",
+    "elevenlabs>=2.74.1",
+    "misaki[en]>=0.9.4",
+    "mlx-audio>=0.6.2",
+    "pyannote-audio>=4",
+]
+
+[project.scripts]
+podscribe = "podscribe.cli:main"
+
+[build-system]
+requires = ["uv_build>=0.13.1,<0.14.0"]
+build-backend = "uv_build"
