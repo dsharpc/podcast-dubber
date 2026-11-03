@@ -5,3 +5,4 @@ models/
 episodes/
 .env
 .DS_Store
+docs/blog-post.md
